@@ -15,16 +15,22 @@ Make the tone helpful, friendly, and suitable for a tech blog.
 async function generateContent() {
   try {
     const res = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
+      'https://openrouter.ai/api/v1/chat/completions',
       {
-        model: "gpt-4",
-        messages: [{ role: "user", content: prompt }],
+        model: 'mistralai/mistral-7b-instruct',
+        messages: [
+          { role: 'system', content: 'You are a helpful blog writer.' },
+          { role: 'user', content: prompt }
+        ],
         temperature: 0.7,
+        max_tokens: 1000,
       },
       {
         headers: {
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://github.com/jbillay',
+          'X-Title': 'Affiliate Blog Generator'
         },
       }
     );
@@ -42,7 +48,8 @@ async function generateContent() {
     // At the end of generateContent():
     commitAndPush(filename);
   } catch (err) {
-    console.error("❌ Error generating content:", err.message);
+    // console.error("❌ Error generating content:", err);
+    console.error('❌ Error:', err.response?.status, err.response?.data);
   }
 }
 
