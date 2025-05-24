@@ -7,7 +7,7 @@ const { execSync } = require("child_process");
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 const prompt = `
-Write a 500-word SEO-optimized blog post titled "Top 5 Budget Wireless Earbuds for 2025".
+Write a 500-word SEO-optimized blog post titled based on the news of the day regarding tech.
 Include at least one affiliate-style link in the text using this format: [Buy on Amazon](https://amzn.to/your-affiliate-link).
 Make the tone helpful, friendly, and suitable for a tech blog.
 `;
@@ -38,12 +38,12 @@ async function generateContent() {
 
     fs.writeFileSync(filepath, content);
     console.log(`✅ Blog post saved as ${filename}`);
+
+    // At the end of generateContent():
+    commitAndPush(filename);
   } catch (err) {
     console.error("❌ Error generating content:", err.message);
   }
-
-  // At the end of generateContent():
-  commitAndPush(filename);
 }
 
 generateContent();
