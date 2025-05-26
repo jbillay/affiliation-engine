@@ -10,6 +10,19 @@ const prompt = `
 Write a 500-word SEO-optimized blog post titled based on the news of the day regarding tech.
 Include at least one affiliate-style link in the text using this format: [Buy on Amazon](https://amzn.to/your-affiliate-link).
 Make the tone helpful, friendly, and suitable for a tech blog.
+For the title, use a catchy and engaging format.
+For the content, please prefix the blog post based on the following template:
+---
+title: 'TTT'
+description: 'DDD'
+pubDate: 'TODAY'
+heroImage: 'IMAGE'
+---
+in which you will replace TTT with the title of the blog post, 
+DDD with a short description, 
+TODAY with today's date in YYYY-MM-DD format, 
+and IMAGE with a relevant image URL of a picture free to use representing the blog post.
+Make sure to include relevant keywords naturally throughout the post.
 `;
 
 async function generateContent() {
@@ -38,9 +51,9 @@ async function generateContent() {
     const content = res.data.choices[0].message.content;
 
     const filename = `blog-${new Date().toISOString().split("T")[0]}.md`;
-    const filepath = path.join(__dirname, "posts", filename);
+    const filepath = path.join(__dirname, "../src/content/post", filename);
 
-    if (!fs.existsSync("posts")) fs.mkdirSync("posts");
+    // if (!fs.existsSync("posts")) fs.mkdirSync("posts");
 
     fs.writeFileSync(filepath, content);
     console.log(`✅ Blog post saved as ${filename}`);
@@ -59,7 +72,7 @@ function commitAndPush(filename) {
   try {
     execSync('git config user.email "jbillay@gmail.com"');
     execSync('git config user.name "Jeremy Billay"');
-    execSync(`git add posts/${filename}`);
+    execSync(`git add src/content/post/${filename}`);
     execSync(`git commit -m "🤖 New post: ${filename}"`);
     execSync("git push");
     console.log("✅ Post committed and pushed to GitHub");
