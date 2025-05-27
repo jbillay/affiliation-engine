@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Generate Blog Post
-        run: node generateContent/generatePost.js
+        run: node generatePost.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
