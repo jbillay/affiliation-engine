@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Move to Content Directory
+        run: cd generateContent
+
       - name: Install Dependencies
         run: npm install
 
