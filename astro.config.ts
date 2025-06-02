@@ -5,7 +5,7 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, passthroughImageService  } from "astro/config";
 import { siteConfig } from "./src/site.config";
 
 // Remark plugins
@@ -29,6 +29,7 @@ export default defineConfig({
   base: "/affiliation-engine",
   image: {
     domains: ["webmention.io"],
+    service: passthroughImageService(),
   },
   integrations: [
     icon(),

@@ -7,21 +7,21 @@ const { execSync } = require("child_process");
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 const prompt = `
-Write a 500-word SEO-optimized blog post titled based on the news of the day regarding tech.
+Write a 500-word SEO-optimized blog post titled based on today's hot topic on tech.
 Include at least one affiliate-style link in the text using this format: [Buy on Amazon](https://amzn.to/your-affiliate-link).
 Make the tone helpful, friendly, and suitable for a tech blog.
-For the title, use a catchy and engaging format.
+For the title, must not includes breaking YAML characters, and use a catchy and engaging format.
 For the content, please prefix the blog post based on the following template:
 ---
-title: 'TTT'
-description: 'DDD'
-pubDate: 'TODAY'
-heroImage: 'IMAGE'
+title: "$title"
+description: "$description"
+publishDate: "$todayDate"
 ---
-in which you will replace TTT with the title of the blog post, 
-DDD with a short description, 
-TODAY with today's date in YYYY-MM-DD format, 
-and IMAGE with a relevant image URL of a picture free to use representing the blog post.
+$content
+in which you will replace $title with the title of the blog post, 
+$description with a short description, 
+$todayDate with today's date in YYYY-MM-DD format, 
+and $content with the main body of the blog post.
 Make sure to include relevant keywords naturally throughout the post.
 `;
 
